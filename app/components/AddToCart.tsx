@@ -1,0 +1,2 @@
+'use client'
+export default function AddToCart({product}:{product:{slug:string,name:string,price:number}}){function add(){const key='sanvi-cart';const cart=JSON.parse(localStorage.getItem(key)||'[]');const i=cart.findIndex((x:any)=>x.slug===product.slug);if(i>=0)cart[i].qty++;else cart.push({...product,qty:1});localStorage.setItem(key,JSON.stringify(cart));alert('Added to Bag ✓')}return <button className="buy" onClick={add}>Add to Bag</button>}
