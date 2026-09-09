@@ -10,8 +10,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Missing payment details.' }, { status: 400 })
     }
     const supabase = await createClient()
-    const { data: { claims }, error: authError } = await supabase.auth.getClaims()
-    const userId = claims?.sub
+    const authResult = await supabase.auth.getClaims()
+    const userId = authResult.data?.claims?.sub
+    const authError = authResult.error
     if (authError || !userId) return NextResponse.json({ error: 'Please login before payment.' }, { status: 401 })
 
     const { data: order, error: orderError } = await supabase.from('orders').select('id,user_id,razorpay_order_id').eq('id', orderId).eq('user_id', userId).single()
