@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: sanvi-boutique
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    autoDeploy: true
